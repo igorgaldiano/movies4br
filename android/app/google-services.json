@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "217520383496",
+    "project_id": "movies4br",
+    "storage_bucket": "movies4br.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217520383496:android:e3df8d350ce53eade713bd",
+        "android_client_info": {
+          "package_name": "com.example.movies4br"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217520383496-csalgnv3ptroc5tcereg4j86v195ga4b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.movies4br",
+            "certificate_hash": "b964f19ab5b61ab1c2bb65be2d18b08d6d7cd087"
+          }
+        },
+        {
+          "client_id": "217520383496-n0disgb986emeebdfgpsbabld5807oqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzuwdrV__lsEATpxhJ7BVcdseMLC0mnTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217520383496-n0disgb986emeebdfgpsbabld5807oqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
