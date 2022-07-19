@@ -14,16 +14,16 @@ Container signInSignButton(BuildContext context, bool isLogin, Function onTap) {
       },
       // ignore: sort_child_properties_last
       child: Text(
-        isLogin ? 'LOG IN' : 'SIGN UP',
+        isLogin ? 'Log in' : 'Register',
         style: const TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
       ),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.pressed)) {
-              return Colors.orange;
+              return Colors.red;
             }
-            return Colors.orange;
+            return Colors.red;
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
@@ -36,14 +36,14 @@ Row signUpOption(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       const Text("Don't have account? ",
-          style: TextStyle(color: Colors.black45)),
+          style: TextStyle(color: Colors.grey)),
       GestureDetector(
         onTap: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const SignUpMovies()));
         },
         child: const Text(
-          "Sign Up",
+          "Create",
           style: TextStyle(
               color: Colors.green, fontWeight: FontWeight.bold, fontSize: 16),
         ),

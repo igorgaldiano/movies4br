@@ -4,6 +4,7 @@ import 'package:movies4br/widgets/trending.dart';
 import 'package:movies4br/widgets/tv.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 import '../service/api.dart';
+import '../service/auth_service.dart';
 
 //Defini a tela principal de filmes
 class HomeMovies extends StatefulWidget {
@@ -14,8 +15,7 @@ class HomeMovies extends StatefulWidget {
 }
 
 class _HomeMovies extends State<HomeMovies> {
-
-   //lista de movies e tv
+  //lista de movies e tv
   List trendingMovies = [];
   List topRatedMovies = [];
   List tvMovies = [];
@@ -26,7 +26,6 @@ class _HomeMovies extends State<HomeMovies> {
     super.initState();
   }
 
-  
   //function
   loadmovies() async {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(apikey, readAccessToken),
@@ -53,24 +52,29 @@ class _HomeMovies extends State<HomeMovies> {
     //print('\ntopRatedMovies');
     //print(trendingMovies);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.black12,
         appBar: AppBar(
           // ignore: prefer_const_constructors
-          title: Text('Brazil 4 Movies 🇧🇷', style: TextStyle(color: Colors.white)),
-          backgroundColor: Color.fromARGB(255, 48, 48, 48),
-        
+          title: Text('Brazil 4 Movies 🇧🇷',
+              style: TextStyle(color: Colors.black)),
+          actions: <Widget>[
+            ElevatedButton.icon(
+              onPressed: () {
+                AuthService.instance.logOut();
+              },
+              icon: Icon(
+                Icons.person,
+              ),
+              label: Text('logout'),
+            ),
+          ],
         ),
-       backgroundColor: Colors.black12,
-        
-        body:
-        
-      
-        ListView(
-                    
+        body: ListView(
           children: [
-            
             TV(tv: tvMovies),
             TopRated(topRated: topRatedMovies),
             TrendingMovies(

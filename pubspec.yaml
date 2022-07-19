@@ -32,6 +32,7 @@ dependencies:
   tmdb_api:
   google_fonts:
   flutter_image:
+  get:
  
   
 
@@ -39,8 +40,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_core: ^1.19.2
   firebase_auth: ^3.4.1
+  firebase_core: ^1.19.2
   cloud_firestore: ^3.2.1
   provider: ^6.0.3
   path_provider: ^2.0.11

@@ -5,22 +5,22 @@ import 'dart:async';
 
 import 'package:movies4br/screens/home_movies.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+class Loading extends StatefulWidget {
+  const Loading({Key? key}) : super(key: key);
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<Loading> createState() => _LoadingState();
 }
 
-class _SplashState extends State<Splash> {
+class _LoadingState extends State<Loading> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeMovies()));
-    });
+   
+    Future.delayed(
+      const Duration(seconds: 3));
+    
   }
 
   @override

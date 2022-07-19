@@ -1,6 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:movies4br/screens/loading.dart';
 import 'package:movies4br/screens/signin_movies.dart';
+import 'package:movies4br/service/auth_service.dart';
 import 'package:movies4br/utils/reusable.dart';
 
 class SignUpMovies extends StatefulWidget {
@@ -11,214 +13,142 @@ class SignUpMovies extends StatefulWidget {
 }
 
 class _SignUpMoviesState extends State<SignUpMovies> {
-  final TextEditingController _nameInputController = TextEditingController();
-  final TextEditingController _mailInputController = TextEditingController();
-  final TextEditingController _passwordInputController =
-      TextEditingController();
-  final TextEditingController _confirmPasswordInputController =
-      TextEditingController();
+  var password = TextEditingController();
+  var email = TextEditingController();
+  var confirmPassword = TextEditingController();
+  final TextStyle style =
+      const TextStyle(fontFamily: 'Montserrat', fontSize: 16.0);
 
-  final formKey = GlobalKey<FormState>();
-
+  List images = ["g.png", "f.png", "i.png"];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.orangeAccent,
-          title: const Text(
-            "Sign Up",
-            style: TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
+    final emailField = TextField(
+      obscureText: false,
+      controller: email,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.email_outlined, color: Colors.black38),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        labelText: "Email",
+        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+          borderSide: const BorderSide(width: 0, style: BorderStyle.none),
         ),
-        body: Container(
-          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 50),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+      ),
+    );
 
-          // ignore: prefer_const_constructors
+    //password
+    final passwordField = TextField(
+      obscureText: true,
+      controller: password,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(
+          Icons.lock_outline,
+          color: Colors.black38,
+        ),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        labelText: "Password",
+        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+          borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+        ),
+      ),
+      keyboardType: TextInputType.visiblePassword,
+    );
 
-          // ignore: prefer_const_constructors
-          decoration: BoxDecoration(
-            // ignore: prefer_const_constructors
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.amberAccent, Colors.white],
+    final confirmPasswordField = TextField(
+      obscureText: true,
+      controller: confirmPassword,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(
+          Icons.lock_outline,
+          color: Colors.black38,
+        ),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        labelText: "Confirm your Password",
+        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+          borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+        ),
+      ),
+      keyboardType: TextInputType.visiblePassword,
+    );
+    return Scaffold(
+      // ignore: sized_box_for_whitespace
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: Image.asset("images/logo2.png", fit: BoxFit.contain),
+                ),
+
+                // ignore: prefer_const_constructors
+                SizedBox(height: 10.0),
+                emailField,
+                const SizedBox(height: 20.0),
+                passwordField,
+                const SizedBox(height: 20.0),
+                confirmPasswordField,
+                const SizedBox(height: 20.0),
+                signInSignButton(
+                  context,
+                  false,
+                  () {
+                    AuthService.instance
+                        .register(email.text.trim(), password.text.trim());
+                  },
+                 
+                ),
+                 SizedBox(
+                  height: 20,
+                ),
+                RichText(text: TextSpan(text: 'Back to Sign in Page', style: TextStyle(color: Colors.orange[500], fontSize: 16, fontWeight: FontWeight.bold), recognizer: TapGestureRecognizer()..onTap = () {
+                   Navigator.pop(context, MaterialPageRoute(
+                                builder: (context) => SignUpMovies()),);
+                } 
+                
+                )),
+                SizedBox(height: 20,),
+                RichText(
+                    text: TextSpan(
+                  text: "Sign up using one of the following methods",
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                    fontSize: 12,
+                  ),
+                )),
+                Wrap(
+                    children: List<Widget>.generate(
+                  3,
+                  ((index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage("images/" + images[index]),
+                      ),
+                    );
+                  }),
+                )),
+              ],
             ),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // ignore: prefer_const_constructors
-                  Padding(
-                    // ignore: prefer_const_constructors
-                    padding: EdgeInsets.only(bottom: 20),
-                  ),
-                  Form(
-                    child: Column(children: [
-                      //Nome Completo
-                      TextFormField(
-                        controller: _nameInputController,
-                        autofocus: false,
-                        style: const TextStyle(color: Colors.black),
-                        // ignore: prefer_const_constructors
-                        decoration: InputDecoration(
-                          labelText: "Enter Username",
-                          // ignore: prefer_const_constructors
-                          labelStyle: TextStyle(color: Colors.black),
-                          // ignore: prefer_const_constructors
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: Colors.black,
-                          ),
-
-                          // ignore: prefer_const_constructors
-                          focusedBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                          // ignore: prefer_const_constructors
-                          enabledBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      // E-mail
-                      TextFormField(
-                        controller: _mailInputController,
-                        autofocus: false,
-                        style: const TextStyle(color: Colors.black),
-                        // ignore: prefer_const_constructors
-                        decoration: InputDecoration(
-                          labelText: "Enter Email",
-                          // ignore: prefer_const_constructors
-                          labelStyle: TextStyle(color: Colors.black),
-                          // ignore: prefer_const_constructors
-                          prefixIcon: Icon(
-                            Icons.mail_outline,
-                            color: Colors.black,
-                          ),
-                          // ignore: prefer_const_constructors
-                          focusedBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                          // ignore: prefer_const_constructors
-                          enabledBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Inform your email correctly';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      // Password
-                      TextFormField(
-                        controller: _passwordInputController,
-                        obscureText: true,
-                        autofocus: false,
-                        // ignore: prefer_const_constructors
-                        style: TextStyle(color: Colors.black),
-                        // ignore: prefer_const_constructors
-                        decoration: InputDecoration(
-                          labelText: "Enter Password",
-                          // ignore: prefer_const_constructors
-                          labelStyle: TextStyle(color: Colors.black),
-                          // ignore: prefer_const_constructors
-                          prefixIcon: Icon(
-                            Icons.lock_outline,
-                            color: Colors.black,
-                          ),
-                          // ignore: prefer_const_constructors
-                          focusedBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                          // ignore: prefer_const_constructors
-                          enabledBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Inform your password!';
-                          } else if (value.length < 6) {
-                            return 'Your password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      // Confirm password
-                      TextFormField(
-                        controller: _confirmPasswordInputController,
-                        obscureText: true,
-                        autofocus: false,
-                        // ignore: prefer_const_constructors
-                        style: TextStyle(color: Colors.black),
-                        // ignore: prefer_const_constructors
-                        decoration: InputDecoration(
-                          labelText: "Confirm your Password",
-                          // ignore: prefer_const_constructors
-                          labelStyle: TextStyle(color: Colors.black),
-                          // ignore: prefer_const_constructors
-                          prefixIcon: Icon(
-                            Icons.lock_outline,
-                            color: Colors.black,
-                          ),
-                          // ignore: prefer_const_constructors
-                          focusedBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                          // ignore: prefer_const_constructors
-                          enabledBorder: UnderlineInputBorder(
-                            // ignore: prefer_const_constructors
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      signInSignButton(context, false, () {
-                        FirebaseAuth.instance.createUserWithEmailAndPassword(
-                            email: _mailInputController.text,
-                            password: _passwordInputController.text);
-                      }),
-                    ]),
-                  )
-
-                  //construção do botao
-                ]),
-          ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -19,10 +19,14 @@ class DescriptionTopRated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( appBar: AppBar(
+          // ignore: prefer_const_constructors
+          title: Text('Top Rated 🇧🇷',
+              style: TextStyle(color: Colors.black)),
+        
+        ),
       // ignore: prefer_const_constructors
-      backgroundColor: Colors.black12,
-
+      backgroundColor:  Colors.black12,
       // ignore: avoid_unnecessary_containers
       body: Container(
         child: ListView(
